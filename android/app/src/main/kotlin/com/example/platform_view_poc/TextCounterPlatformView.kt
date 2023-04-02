@@ -37,5 +37,4 @@ class TextCounterPlatformView(private val context: Context) : PlatformView {
         mTextCounter = null
     }
 
-
 }

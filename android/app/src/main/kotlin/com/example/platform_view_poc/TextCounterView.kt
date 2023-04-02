@@ -16,7 +16,7 @@ class TextCounterView : FrameLayout {
 
     private var mTextView: TextView
 
-    private var mTextCounter: TextCounter = TextCounter.instance
+    private var mTextCounter = TextCounter
 
     init {
         Log.v("PlatformView", "TextCounter init with $this")

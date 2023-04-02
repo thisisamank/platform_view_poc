@@ -2,15 +2,22 @@ package com.example.platform_view_poc
 
 import android.os.CountDownTimer
 
-class TextCounter private constructor() {
-    private lateinit var mCountDownTimer: CountDownTimer
+object TextCounter {
+//    private var mCountDownTimer: CountDownTimer? = null
     private lateinit var onTickRunnable: TickCounterRunnable
     private lateinit var onFinishRunnable: TickCounterRunnable
 
+    private val countDownTimer = object : CountDownTimer(100000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            onTickRunnable.run(millisUntilFinished)
+        }
 
-    companion object {
-        val instance = TextCounter()
+        override fun onFinish() {
+            onFinishRunnable.run(0)
+        }
     }
+
+
 
     fun setOnTickRunnable(runnable: TickCounterRunnable) {
         onTickRunnable = runnable
@@ -21,21 +28,12 @@ class TextCounter private constructor() {
     }
 
     fun startCountDown() {
-        mCountDownTimer = object : CountDownTimer(100000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                onTickRunnable.run(millisUntilFinished)
-            }
-
-            override fun onFinish() {
-                onFinishRunnable.run(0)
-            }
-        }
-        mCountDownTimer.start()
+        countDownTimer.start()
     }
 
 
     fun cancelCountDown() {
-        mCountDownTimer.cancel()
+        countDownTimer.cancel()
     }
 
 
